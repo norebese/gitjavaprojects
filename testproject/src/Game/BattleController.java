@@ -1,5 +1,6 @@
 package Game;
-
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class BattleController {
@@ -60,7 +61,17 @@ public class BattleController {
 		me.setCard(2, "수5");
 		me.setCard(3, "수2");
 		me.setCard(4, "힘1");
-		me.setAllCard("공7");
+		me.setAllCard("1111");
+		me.setAllCard("1111");
+		me.setAllCard("1111");
+		me.setAllCard("1111");
+		me.setAllCard("1111");
+		
+		me.setAllCard("2222");
+		
+		me.setAllCard("3333");
+		me.setAllCard("4444");
+		me.setAllCard("5555");
 	}
 	
 	public void card0() {
@@ -92,19 +103,22 @@ public class BattleController {
 	
 	public void showCard() {
 		setCard();
-		int j=0;
-		while(j<5) {
-			int rannum=(int)(Math.random()*4);
-			if(!me.card[rannum].equals(null)) {
-				thisCard[j]=me.card[rannum];
-				j++;
-			}else {
-				continue;
-			}
+//		int j=0;
+//		while(j<5) {
+//			int rannum=(int)(Math.random()*4);
+//			if(!me.card[rannum].equals(null)) {
+//				thisCard[j]=me.card[rannum];
+//				j++;
+//			}else {
+//				continue;
+//			}
+//		}
+		for(int i=0;i<5;i++) {
+			int rannum=(int)(Math.random()*me.AllCard.size());
+			System.out.println(me.AllCard.get(rannum));
+			me.AllCard.remove(rannum);
 		}
-		for(int i=0;i<thisCard.length;i++) {
-			System.out.println(thisCard[i]);
-		}
+		me.AllCard.clear();
 	}
 	public void selectCard() {
 		

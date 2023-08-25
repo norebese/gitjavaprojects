@@ -11,7 +11,7 @@ public class Character extends BattleSystem {
 	private int mana;
 	private int num;
 	public String[] card=new String[5];
-	private List<String> AllCard=new ArrayList<>();
+	public List<String> AllCard=new ArrayList<>();
 	
 	public Character(int maxHP, int HP, int shield, int strength,int courage, int maxMana, int mana) {
 		super(maxHP,HP,shield,strength);
@@ -48,6 +48,14 @@ public class Character extends BattleSystem {
 	
 	public String toString() {
 		return "체력:"+this.maxHP+"/"+this.HP+" | 쉴드:"+this.shield;
+	}
+
+	public List<String> getAllCard() {
+		return AllCard;
+	}
+
+	public void setAllCard(String cardName) {
+		AllCard.add(cardName);
 	}
 	
 }
