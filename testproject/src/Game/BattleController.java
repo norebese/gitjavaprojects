@@ -5,9 +5,9 @@ import java.util.Scanner;
 
 public class BattleController {
 	Scanner sc=new Scanner(System.in);
-	private Character me=new Character(100,100,0,0,0,3,3);
-	private Monster mon=new Monster(30,30,0,0,"mon");
-	String thisCard[]=new String[5];
+	private Character me=new Character(30,30,0,0,0,3,0);
+	private Monster mon=new Monster(100,100,0,0,"mon");
+	private List<String> thisCard=new ArrayList<>();
 
 	public void createCharacter() {
 		String name=sc.next();
@@ -24,7 +24,7 @@ public class BattleController {
 	}
 	
 	public void mon1() {
-		System.out.println("몬스터를 조우했습니다... 당신은 어떤 선택을...");
+		System.out.println("몬스터가 공격하려고 합니다... 당신은 어떤 선택을...");
 		int rannum=(int)(Math.random()*2+1);
 		System.out.println(rannum);
 		if(rannum==1) {
@@ -48,7 +48,13 @@ public class BattleController {
 			me.setShield(0);
 			me.setHP(me.getHP()-finalDamage);
 		}
+		if(me.getHP()<=0) {
+			System.out.println("사망");
+			return;
+		}
 		System.out.println(me);
+		mon1();
+		selectCard();
 	}
 	
 	public void shieldBreak() {
@@ -56,11 +62,6 @@ public class BattleController {
 	}
 	
 	public void setCard() {
-		me.setCard(0, "공7");
-		me.setCard(1, "공2");
-		me.setCard(2, "수5");
-		me.setCard(3, "수2");
-		me.setCard(4, "힘1");
 		me.setAllCard("1111");
 		me.setAllCard("1111");
 		me.setAllCard("1111");
@@ -74,7 +75,7 @@ public class BattleController {
 		me.setAllCard("5555");
 	}
 	
-	public void card0() {
+	public void card1() {
 		int dm=(7+me.strength)-mon.getShield();
 		if(dm<0) {
 			dm=0;
@@ -86,74 +87,87 @@ public class BattleController {
 		}
 		me.setMana(me.getMana()-1);
 	}
-	public void card1() {
-		
-	}
 	public void card2() {
+		me.setMana(me.getMana()-1);
+	}
+	public void card3() {
 		me.setShield(me.getShield()+5);
 		System.out.println(me);
 		me.setMana(me.getMana()-1);
 	}
-	public void card3() {
-		
-	}
 	public void card4() {
-		
+		me.setMana(me.getMana()-1);
+	}
+	public void card5() {
+		me.setMana(me.getMana()-1);
 	}
 	
 	public void showCard() {
-		setCard();
-//		int j=0;
-//		while(j<5) {
-//			int rannum=(int)(Math.random()*4);
-//			if(!me.card[rannum].equals(null)) {
-//				thisCard[j]=me.card[rannum];
-//				j++;
-//			}else {
-//				continue;
-//			}
-//		}
+		
 		for(int i=0;i<5;i++) {
 			int rannum=(int)(Math.random()*me.AllCard.size());
-			System.out.println(me.AllCard.get(rannum));
+			thisCard.add(me.AllCard.get(rannum));
 			me.AllCard.remove(rannum);
-		}
-		me.AllCard.clear();
-	}
-	public void selectCard() {
-		
-		while(me.getMana()!=0) {
-			showCard();
-			System.out.print("카드 선택(남은 마나:"+me.getMana()+") :");
-			int cardNum=sc.nextInt();
-			if(thisCard[cardNum-1].equals(me.card[0])){
-				card0();
-				me.card[0]=null;
-				System.out.println(mon.name+":"+mon);
-			}else if(thisCard[cardNum-1].equals(me.card[1])) {
-				card1();
-				me.card[1]=null;
-				
-			}else if(thisCard[cardNum-1].equals(me.card[2])) {
-				card2();
-				me.card[1]=null;
-				
-			}else if(thisCard[cardNum-1].equals(me.card[3])) {
-				card3();
-				me.card[3]=null;
-				
-			}else if(thisCard[cardNum-1].equals(me.card[4])) {
-				card4();
-				me.card[4]=null;
-				
+			System.out.println(i+1+":"+thisCard.get(i));
+			if(me.AllCard.size()==0) {
+				setCard();
+				System.out.println("카드를 섞었습니다");
 			}
 			
 		}
 		
-		
-		// selectcard에 반복문 붙이기
-		
-		
+	}
+	public void selectCard() {
+		showCard();
+		me.setMana(3);
+		while(me.getMana()!=0) {
+			System.out.print("카드 선택(남은 마나:"+me.getMaxMana()+"/"+me.getMana()+") :");
+			int cardNum=sc.nextInt();
+			if(thisCard.get(cardNum-1).equals("1111")){
+				card1();
+				thisCard.remove(cardNum-1);
+				System.out.println(mon.name+":"+mon);
+				if(me.getMana()!=0) {
+					for(int i=0;i<thisCard.size();i++) {
+						System.out.println(i+1+":"+thisCard.get(i));
+					}
+				}
+			}else if(thisCard.get(cardNum-1).equals("2222")) {
+				card2();
+				thisCard.remove(cardNum-1);
+				if(me.getMana()!=0) {
+					for(int i=0;i<thisCard.size();i++) {
+						System.out.println(i+1+":"+thisCard.get(i));
+					}
+				}
+			}else if(thisCard.get(cardNum-1).equals("3333")) {
+				card3();
+				thisCard.remove(cardNum-1);
+				if(me.getMana()!=0) {
+					for(int i=0;i<thisCard.size();i++) {
+						System.out.println(i+1+":"+thisCard.get(i));
+					}
+				}
+			}else if(thisCard.get(cardNum-1).equals("4444")) {
+				card4();
+				thisCard.remove(cardNum-1);
+				if(me.getMana()!=0) {
+					for(int i=0;i<thisCard.size();i++) {
+						System.out.println(i+1+":"+thisCard.get(i));
+					}
+				}
+			}else if(thisCard.get(cardNum-1).equals("5555")) {
+				card5();
+				thisCard.remove(cardNum-1);
+				if(me.getMana()!=0) {
+					for(int i=0;i<thisCard.size();i++) {
+						System.out.println(i+1+":"+thisCard.get(i));
+					}
+				}
+			}
+		}
+		thisCard.clear();
+		monTurn();
 	}
 	
 	

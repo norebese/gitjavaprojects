@@ -22,8 +22,9 @@ public class gameMenu {
 	
 	public void game1() {
 		a.mon1();
+		a.setCard();
 		a.selectCard();
-		a.monTurn();
+		
 	}
 	
 	
