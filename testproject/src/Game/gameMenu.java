@@ -24,9 +24,15 @@ public class gameMenu {
 		a.mon1();
 		a.setCard();
 		a.selectCard();
+		game2();
+	}
+	public void game2() {
+		a.createMon2();
+		a.mon2();
+		a.setCard();
+		a.selectCard();
 		
 	}
-	
 	
 
 }
