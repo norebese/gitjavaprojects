@@ -27,6 +27,7 @@ public class gameMenu {
 		game2();
 	}
 	public void game2() {
+		System.out.println("2라운드 시작");
 		a.createMon2();
 		a.mon2();
 		a.setCard();
